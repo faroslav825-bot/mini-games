@@ -785,9 +785,7 @@ function buyItem() {
 function updateInventory() {
 
     const list =
-        document.getElementById(
-            "inventoryList"
-        );
+        document.getElementById("inventoryList");
 
 
     if (player.inventory.length === 0) {
@@ -804,11 +802,45 @@ function updateInventory() {
 
     list.innerHTML =
         player.inventory
-            .map(function(item) {
+            .map(function(item, index) {
+
+                // Поддержка старых предметов
+                if (typeof item === "string") {
+
+                    return (
+                        '<div class="item">' +
+                        '<b>' + item + '</b>' +
+                        '</div>'
+                    );
+
+                }
+
 
                 return (
                     '<div class="item">' +
-                    item +
+
+                    '<div style="font-size:18px;font-weight:bold;">' +
+                    item.name +
+                    '</div>' +
+
+                    '<div style="margin-top:6px;">' +
+                    'Редкость: ' +
+                    item.rarity +
+                    '</div>' +
+
+                    '<div style="margin-top:6px;">' +
+                    '💰 Цена: ' +
+                    item.sell +
+                    ' 🪙' +
+                    '</div>' +
+
+                    '<button class="action" ' +
+                    'onclick="sellItem(' + index + ')">' +
+                    '💰 ПРОДАТЬ ЗА ' +
+                    item.sell +
+                    ' 🪙' +
+                    '</button>' +
+
                     '</div>'
                 );
 
