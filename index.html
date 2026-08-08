@@ -659,9 +659,7 @@ function addXP(amount) {
 function openCase(price) {
 
     const result =
-        document.getElementById(
-            "caseResult"
-        );
+        document.getElementById("caseResult");
 
 
     if (player.coins < price) {
@@ -674,44 +672,66 @@ function openCase(price) {
     }
 
 
+    // Списываем стоимость кейса
     player.coins -= price;
 
 
     const rewards = [
 
-        ["🟢 Обычный предмет", 10],
+        {
+            name: "🟢 Обычный предмет",
+            rarity: "Обычный",
+            sell: 5
+        },
 
-        ["🔵 Редкий предмет", 25],
+        {
+            name: "🔵 Редкий предмет",
+            rarity: "Редкий",
+            sell: 15
+        },
 
-        ["🟣 Эпический предмет", 50],
+        {
+            name: "🟣 Эпический предмет",
+            rarity: "Эпический",
+            sell: 35
+        },
 
-        ["🟡 Легендарный предмет", 100]
+        {
+            name: "🟡 Легендарный предмет",
+            rarity: "Легендарный",
+            sell: 75
+        }
 
     ];
 
 
+    const random =
+        Math.floor(
+            Math.random() * rewards.length
+        );
+
+
     const reward =
-        rewards[
-            Math.floor(
-                Math.random() *
-                rewards.length
-            )
-        ];
+        rewards[random];
 
 
-    player.inventory.push(
-        reward[0]
-    );
+    player.inventory.push({
+
+        name: reward.name,
+
+        rarity: reward.rarity,
+
+        sell: reward.sell
+
+    });
 
 
-    player.coins += reward[1];
-
-
-    result.textContent =
-        "🎉 Выпало: " +
-        reward[0] +
-        " +" +
-        reward[1] +
+    result.innerHTML =
+        "🎉 Выпало: <b>" +
+        reward.name +
+        "</b><br>" +
+        "💰 Продажа: " +
+        reward.sell +
         " 🪙";
 
 
