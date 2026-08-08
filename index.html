@@ -3,369 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mini Games</title>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>mini Games</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
 }
 
 body{
-  background:#10131a;
-  color:white;
-  min-height:100vh;
+    background:#090d14;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-.app{
-  max-width:600px;
-  margin:auto;
-  padding:18px;
+.container{
+    max-width:480px;
+    margin:auto;
+    min-height:100vh;
+    padding:20px;
 }
 
 .header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:800;
+    font-size:26px;
+    font-weight:900;
 }
 
-.balance{
-  background:#1d2330;
-  padding:10px 14px;
-  border-radius:14px;
-  color:#ffd84d;
-  font-weight:bold;
-}
-
-.profile{
-  background:linear-gradient(135deg,#202938,#151922);
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:18px;
-}
-
-.profileTop{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.avatar{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  background:#303b50;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-}
-
-.name{
-  font-size:20px;
-  font-weight:bold;
-}
-
-.level{
-  color:#9da8ba;
-  margin-top:5px;
-}
-
-.xpbar{
-  height:9px;
-  background:#303747;
-  border-radius:10px;
-  margin-top:15px;
-  overflow:hidden;
-}
-
-.xpfill{
-  height:100%;
-  width:0%;
-  background:#6d7cff;
-  transition:.3s;
-}
-
-.menu{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-button{
-  border:0;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  padding:17px;
-  border-radius:16px;
-  background:#202735;
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(.97);
-}
-
-.primary{
-  background:#5968ff;
-}
-
-.green{
-  background:#278b5b;
-}
-
-.gold{
-  background:#8c6b18;
-}
-
-.red{
-  background:#8d3440;
+.coins{
+    background:#171e2b;
+    padding:10px 15px;
+    border-radius:15px;
+    color:#ffd43b;
+    font-weight:bold;
 }
 
 .screen{
-  display:none;
+    display:none;
 }
 
 .screen.active{
-  display:block;
-}
-
-.back{
-  margin-bottom:18px;
-  background:#202735;
+    display:block;
 }
 
 .card{
-  background:#1b212c;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
+    background:#121925;
+    border:1px solid #202b3c;
+    border-radius:22px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 10px 30px #0005;
 }
 
-.card h2{
-  margin-bottom:10px;
+.hero{
+    text-align:center;
+    padding-top:60px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#8e9bad;
+    margin-bottom:35px;
+}
+
+.open-btn{
+    width:100%;
+    border:0;
+    border-radius:20px;
+    padding:20px;
+    font-size:25px;
+    font-weight:900;
+    color:white;
+    background:linear-gradient(135deg,#7b3cff,#4c7dff);
+    box-shadow:0 8px 25px #4c7dff55;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+.menu-btn{
+    width:100%;
+    padding:16px;
+    margin-top:10px;
+    border-radius:15px;
+    background:#1b2535;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.menu-btn:hover{
+    background:#26344a;
+}
+
+.back{
+    margin-bottom:18px;
+    background:#171e2b;
+    color:white;
+    padding:10px 15px;
+    border-radius:12px;
+}
+
+.profile{
+    text-align:center;
+}
+
+.avatar{
+    width:85px;
+    height:85px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7b3cff,#35a7ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px;
+    font-size:35px;
+}
+
+.level{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.xpbar{
+    height:12px;
+    background:#252f40;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.xpfill{
+    height:100%;
+    background:linear-gradient(90deg,#7b3cff,#39a7ff);
+    width:0%;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    margin:12px 0;
+    color:#b7c1d1;
 }
 
 .case{
-  text-align:center;
-  padding:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.caseIcon{
-  font-size:65px;
-  margin-bottom:15px;
+.case-icon{
+    font-size:45px;
 }
 
 .price{
-  color:#ffd84d;
-  margin:10px;
-}
-
-input{
-  width:100%;
-  padding:15px;
-  border-radius:13px;
-  border:1px solid #394254;
-  background:#11151d;
-  color:white;
-  font-size:18px;
-  margin:10px 0;
+    color:#ffd43b;
+    font-weight:bold;
 }
 
 .question{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
+    font-size:19px;
+    line-height:1.4;
+    margin-bottom:15px;
 }
 
 .answer{
-  width:100%;
-  margin:7px 0;
-  text-align:left;
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #29364a;
+    background:#0d131d;
+    color:white;
+    margin-bottom:8px;
+    text-align:left;
 }
 
-.result{
-  margin-top:15px;
-  padding:15px;
-  border-radius:14px;
-  background:#242c3a;
-  text-align:center;
+.answer:hover{
+    background:#26344a;
 }
 
-.shopItem{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:10px 0;
-  padding:15px;
-  background:#252c3a;
-  border-radius:14px;
+.input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #29364a;
+    background:#0d131d;
+    color:white;
+    font-size:18px;
+    outline:none;
+}
+
+.success{
+    color:#42e88a;
+    font-weight:bold;
+}
+
+.error{
+    color:#ff6577;
+    font-weight:bold;
 }
 
 .small{
-  color:#9da8ba;
-  font-size:14px;
+    color:#8793a5;
+    font-size:14px;
+    margin-top:8px;
 }
 
-.center{
-  text-align:center;
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    background:#171f2d;
+    border-radius:15px;
+    margin-bottom:10px;
+}
+
+@media(max-width:400px){
+    .hero h1{
+        font-size:34px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
 <!-- ГЛАВНОЕ МЕНЮ -->
 <div id="home" class="screen active">
 
-  <div class="header">
-    <div class="logo">🎮 Mini Games</div>
-    <div class="balance">🪙 <span id="coins">100</span></div>
-  </div>
+    <div class="header">
+        <div class="logo">🎮 mini Games</div>
+        <div class="coins">🪙 <span id="coinsHome">0</span></div>
+    </div>
 
-  <div class="profile">
+    <div class="hero">
+        <div class="card">
+            <h1>mini Games</h1>
+            <p>Играй • Получай XP • Собирай монеты</p>
 
-    <div class="profileTop">
-
-      <div class="avatar" id="avatar">👤</div>
-
-      <div>
-        <div class="name" id="playerName">Игрок</div>
-        <div class="level">
-          Уровень <span id="level">1</span> •
-          XP <span id="xp">0</span>
+            <button class="open-btn" onclick="openMenu()">
+                OPEN
+            </button>
         </div>
-      </div>
-
     </div>
-
-    <div class="xpbar">
-      <div class="xpfill" id="xpFill"></div>
-    </div>
-
-  </div>
-
-  <div class="menu">
-
-    <button class="primary" onclick="openScreen('games')">
-      🎮 ИГРАТЬ
-    </button>
-
-    <button onclick="openScreen('profile')">
-      👤 ПРОФИЛЬ
-    </button>
-
-    <button class="gold" onclick="openScreen('shop')">
-      🏪 МАГАЗИН
-    </button>
-
-    <button onclick="openScreen('cases')">
-      🎁 КЕЙСЫ
-    </button>
-
-  </div>
 
 </div>
 
 
-<!-- ИГРЫ -->
-<div id="games" class="screen">
+<!-- ВТОРОЕ МЕНЮ -->
+<div id="menu" class="screen">
 
-  <button class="back" onclick="openScreen('home')">
-    ← Назад
-  </button>
-
-  <h1>🎮 Игры</h1>
-  <br>
-
-  <div class="card">
-    <h2>🔢 Угадай число</h2>
-    <p class="small">Я загадал число от 1 до 50.</p>
-    <br>
-    <button class="primary" onclick="startGuess()">Играть</button>
-  </div>
-
-  <div class="card">
-    <h2>🧠 Викторина</h2>
-    <p class="small">50 вопросов с вариантами ответа.</p>
-    <br>
-    <button class="green" onclick="startQuiz()">Начать</button>
-  </div>
-
-</div>
-
-
-<!-- УГАДАЙ ЧИСЛО -->
-<div id="guess" class="screen">
-
-  <button class="back" onclick="openScreen('games')">
-    ← Назад
-  </button>
-
-  <div class="card center">
-
-    <h1>🔢 Угадай число</h1>
-
-    <p class="small">
-      Число от 1 до 50
-    </p>
-
-    <input
-      id="guessInput"
-      type="number"
-      min="1"
-      max="50"
-      placeholder="Введи число"
-    >
-
-    <button class="primary" onclick="makeGuess()">
-      Проверить
+    <button class="back" onclick="showScreen('home')">
+        ← Назад
     </button>
 
-    <div id="guessResult" class="result">
-      Сделай свою первую попытку!
+    <div class="header">
+        <div class="logo">🎮 Игры</div>
+        <div class="coins">🪙 <span id="coinsMenu">0</span></div>
     </div>
 
-  </div>
+    <button class="menu-btn" onclick="openGame('quiz')">
+        🧠 Викторина
+    </button>
 
-</div>
+    <button class="menu-btn" onclick="openGame('guess')">
+        🔢 Угадай число
+    </button>
 
+    <button class="menu-btn" onclick="openProfile()">
+        👤 Профиль
+    </button>
 
-<!-- ВИКТОРИНА -->
-<div id="quiz" class="screen">
+    <button class="menu-btn" onclick="openCases()">
+        🎁 Кейсы
+    </button>
 
-  <button class="back" onclick="openScreen('games')">
-    ← Назад
-  </button>
-
-  <div class="card">
-
-    <div class="small">
-      Вопрос <span id="questionNumber">1</span>/50
-    </div>
-
-    <br>
-
-    <div id="question" class="question"></div>
-
-    <div id="answers"></div>
-
-    <div id="quizResult" class="result"></div>
-
-  </div>
+    <button class="menu-btn" onclick="openShop()">
+        🛒 Магазин
+    </button>
 
 </div>
 
@@ -373,89 +306,122 @@ input{
 <!-- ПРОФИЛЬ -->
 <div id="profile" class="screen">
 
-  <button class="back" onclick="openScreen('home')">
-    ← Назад
-  </button>
+    <button class="back" onclick="showScreen('menu')">
+        ← Назад
+    </button>
 
-  <div class="card center">
+    <div class="card profile">
 
-    <div class="avatar" style="margin:auto" id="profileAvatar">
-      👤
+        <div class="avatar">👤</div>
+
+        <h2 id="profileName">Игрок</h2>
+
+        <div class="level">
+            Уровень <span id="level">1</span>
+        </div>
+
+        <div class="xpbar">
+            <div class="xpfill" id="xpFill"></div>
+        </div>
+
+        <p class="small">
+            XP: <span id="xp">0</span> / 10
+        </p>
+
     </div>
 
-    <br>
+    <div class="card">
 
-    <h1 id="profileName">Игрок</h1>
+        <div class="stat">
+            <span>🪙 Монеты</span>
+            <b id="profileCoins">0</b>
+        </div>
 
-    <p class="small">
-      Твой игровой профиль
-    </p>
+        <div class="stat">
+            <span>🎮 Игр сыграно</span>
+            <b id="gamesPlayed">0</b>
+        </div>
 
-  </div>
+        <div class="stat">
+            <span>🏆 Побед</span>
+            <b id="wins">0</b>
+        </div>
 
-  <div class="card">
+        <div class="stat">
+            <span>🎁 Кейсов открыто</span>
+            <b id="casesOpened">0</b>
+        </div>
 
-    <h2>📊 Статистика</h2>
-
-    <br>
-
-    <p>⭐ Уровень: <b id="profileLevel">1</b></p>
-    <br>
-    <p>✨ Опыт: <b id="profileXP">0</b></p>
-    <br>
-    <p>🪙 Монеты: <b id="profileCoins">100</b></p>
-
-  </div>
+    </div>
 
 </div>
 
 
-<!-- МАГАЗИН -->
-<div id="shop" class="screen">
+<!-- ВИКТОРИНА -->
+<div id="quiz" class="screen">
 
-  <button class="back" onclick="openScreen('home')">
-    ← Назад
-  </button>
+    <button class="back" onclick="showScreen('menu')">
+        ← Назад
+    </button>
 
-  <h1>🏪 Магазин</h1>
-  <br>
+    <div class="card">
 
-  <div class="card">
+        <h2>🧠 Викторина</h2>
 
-    <div class="shopItem">
-      <div>
-        🎟️ Билет
-        <div class="small">Для будущих игр</div>
-      </div>
+        <p class="small">
+            Вопрос <span id="questionNumber">1</span> из 50
+        </p>
 
-      <button onclick="buyItem(20,'Билет')">
-        🪙 20
-      </button>
+        <br>
+
+        <div class="question" id="questionText"></div>
+
+        <div id="answers"></div>
+
+        <p id="quizResult"></p>
+
     </div>
 
-    <div class="shopItem">
-      <div>
-        ⚡ Бустер XP
-        <div class="small">+25 XP</div>
-      </div>
+</div>
 
-      <button onclick="buyXPBoost()">
-        🪙 50
-      </button>
+
+<!-- УГАДАЙ ЧИСЛО -->
+<div id="guess" class="screen">
+
+    <button class="back" onclick="showScreen('menu')">
+        ← Назад
+    </button>
+
+    <div class="card">
+
+        <h2>🔢 Угадай число</h2>
+
+        <p class="small">
+            Я загадал число от 1 до 50.
+        </p>
+
+        <p class="small">
+            Осталось попыток: <b id="attempts">7</b>
+        </p>
+
+        <br>
+
+        <input
+            id="guessInput"
+            class="input"
+            type="number"
+            min="1"
+            max="50"
+            placeholder="Введи число"
+        >
+
+        <button class="menu-btn" onclick="makeGuess()">
+            Проверить
+        </button>
+
+        <p id="guessResult"></p>
+
     </div>
-
-    <div class="shopItem">
-      <div>
-        🎁 Большой кейс
-        <div class="small">Редкая награда</div>
-      </div>
-
-      <button onclick="openBigCase()">
-        🪙 100
-      </button>
-    </div>
-
-  </div>
 
 </div>
 
@@ -463,44 +429,100 @@ input{
 <!-- КЕЙСЫ -->
 <div id="cases" class="screen">
 
-  <button class="back" onclick="openScreen('home')">
-    ← Назад
-  </button>
-
-  <h1>🎁 Кейсы</h1>
-  <br>
-
-  <div class="card case">
-
-    <div class="caseIcon">📦</div>
-
-    <h2>Обычный кейс</h2>
-
-    <div class="price">
-      🪙 25
-    </div>
-
-    <button class="primary" onclick="openCase(25)">
-      ОТКРЫТЬ
+    <button class="back" onclick="showScreen('menu')">
+        ← Назад
     </button>
 
-  </div>
+    <div class="card">
 
-  <div class="card case">
+        <h2>🎁 Кейсы</h2>
 
-    <div class="caseIcon">💎</div>
+        <p class="small">
+            Открывай кейсы и получай награды.
+        </p>
 
-    <h2>Премиум кейс</h2>
-
-    <div class="price">
-      🪙 75
     </div>
 
-    <button class="gold" onclick="openCase(75)">
-      ОТКРЫТЬ
+    <div class="card case">
+
+        <div>
+            <div class="case-icon">📦</div>
+            <b>Обычный кейс</b>
+            <p class="price">🪙 25</p>
+        </div>
+
+        <button class="menu-btn" onclick="openCase(25)">
+            Открыть
+        </button>
+
+    </div>
+
+    <div class="card case">
+
+        <div>
+            <div class="case-icon">💎</div>
+            <b>Редкий кейс</b>
+            <p class="price">🪙 50</p>
+        </div>
+
+        <button class="menu-btn" onclick="openCase(50)">
+            Открыть
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- МАГАЗИН -->
+<div id="shop" class="screen">
+
+    <button class="back" onclick="showScreen('menu')">
+        ← Назад
     </button>
 
-  </div>
+    <div class="card">
+
+        <h2>🛒 Магазин</h2>
+
+        <p class="small">
+            Трать монеты на различные предметы.
+        </p>
+
+    </div>
+
+    <div class="item">
+        <div>
+            🎟️ Билет
+            <p class="small">Просто коллекционный предмет</p>
+        </div>
+
+        <button class="menu-btn" onclick="buyItem('Билет',100)">
+            100 🪙
+        </button>
+    </div>
+
+    <div class="item">
+        <div>
+            ⚡ Буст XP
+            <p class="small">Бонусный опыт</p>
+        </div>
+
+        <button class="menu-btn" onclick="buyItem('Буст XP',200)">
+            200 🪙
+        </button>
+    </div>
+
+    <div class="item">
+        <div>
+            💎 Алмаз
+            <p class="small">Редкий предмет</p>
+        </div>
+
+        <button class="menu-btn" onclick="buyItem('Алмаз',500)">
+            500 🪙
+        </button>
+    </div>
 
 </div>
 
@@ -509,11 +531,70 @@ input{
 
 <script>
 
-const tg = window.Telegram?.WebApp;
+/* =========================
+   ПРОФИЛЬ И СОХРАНЕНИЕ
+========================= */
 
-if(tg){
-  tg.ready();
-  tg.expand();
+let player = JSON.parse(localStorage.getItem("miniGamesPlayer"));
+
+if(!player){
+
+    player = {
+        name:"Игрок",
+        coins:100,
+        xp:0,
+        level:1,
+        games:0,
+        wins:0,
+        cases:0,
+        lastDaily:0,
+        inventory:[]
+    };
+
+    localStorage.setItem(
+        "miniGamesPlayer",
+        JSON.stringify(player)
+    );
+}
+
+
+/* =========================
+   СОХРАНЕНИЕ
+========================= */
+
+function save(){
+
+    localStorage.setItem(
+        "miniGamesPlayer",
+        JSON.stringify(player)
+    );
+
+    updateUI();
+}
+
+
+/* =========================
+   ЭКРАНЫ
+========================= */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(x=>x.classList.remove("active"));
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    updateUI();
+}
+
+
+function openMenu(){
+
+    showScreen("menu");
+
 }
 
 
@@ -521,131 +602,305 @@ if(tg){
    ПРОФИЛЬ
 ========================= */
 
-let tgUser = tg?.initDataUnsafe?.user;
+function openProfile(){
 
-let playerId =
-  tgUser?.id ||
-  localStorage.getItem("miniGamesPlayerId") ||
-  "local_player";
+    checkDailyXP();
 
-localStorage.setItem("miniGamesPlayerId",playerId);
-
-let data = JSON.parse(
-  localStorage.getItem("player_"+playerId) ||
-  "null"
-);
-
-if(!data){
-
-  data = {
-    name: tgUser
-      ? ((tgUser.first_name || "") + " " + (tgUser.last_name || "")).trim()
-      : "Игрок",
-
-    coins:100,
-    xp:0,
-    level:1,
-    lastDaily:0
-  };
+    showScreen("profile");
 
 }
 
-function save(){
-  localStorage.setItem(
-    "player_"+playerId,
-    JSON.stringify(data)
-  );
-}
 
 function updateUI(){
 
-  document.getElementById("coins").textContent=data.coins;
-  document.getElementById("xp").textContent=data.xp;
-  document.getElementById("level").textContent=data.level;
+    document.getElementById("coinsHome").textContent =
+        player.coins;
 
-  document.getElementById("playerName").textContent=data.name;
+    document.getElementById("coinsMenu").textContent =
+        player.coins;
 
-  document.getElementById("profileName").textContent=data.name;
+    document.getElementById("profileCoins").textContent =
+        player.coins;
 
-  document.getElementById("profileLevel").textContent=data.level;
-  document.getElementById("profileXP").textContent=data.xp;
-  document.getElementById("profileCoins").textContent=data.coins;
+    document.getElementById("xp").textContent =
+        player.xp;
 
-  let needed=data.level*100;
+    document.getElementById("level").textContent =
+        player.level;
 
-  let percent=(data.xp/needed)*100;
+    document.getElementById("gamesPlayed").textContent =
+        player.games;
 
-  document.getElementById("xpFill").style.width=
-    Math.min(percent,100)+"%";
+    document.getElementById("wins").textContent =
+        player.wins;
+
+    document.getElementById("casesOpened").textContent =
+        player.cases;
+
+    document.getElementById("profileName").textContent =
+        player.name;
+
+    document.getElementById("xpFill").style.width =
+        (player.xp / 10 * 100) + "%";
 }
+
+
+/* =========================
+   ЕЖЕДНЕВНЫЙ XP
+========================= */
+
+function checkDailyXP(){
+
+    const now = Date.now();
+
+    const day = 24 * 60 * 60 * 1000;
+
+    if(
+        player.lastDaily === 0 ||
+        now - player.lastDaily >= day
+    ){
+
+        player.xp += 1;
+
+        player.lastDaily = now;
+
+        levelCheck();
+
+        save();
+
+    }
+
+}
+
+
+/* =========================
+   XP
+========================= */
 
 function addXP(amount){
 
-  data.xp+=amount;
+    player.xp += amount;
 
-  while(data.xp >= data.level*100){
-
-    data.xp-=data.level*100;
-    data.level++;
-
-    data.coins+=25;
-
-    alert(
-      "🎉 Новый уровень!\n\n" +
-      "Ты достиг уровня "+data.level+
-      "\n\n+25 🪙"
-    );
-
-  }
-
-  save();
-  updateUI();
-}
-
-
-/* =========================
-   +1 XP РАЗ В 24 ЧАСА
-========================= */
-
-function dailyReward(){
-
-  const now=Date.now();
-
-  if(now-data.lastDaily >= 24*60*60*1000){
-
-    data.lastDaily=now;
-
-    data.xp+=1;
+    levelCheck();
 
     save();
 
-    updateUI();
+}
 
-    setTimeout(()=>{
-      alert("🎁 Ежедневная награда!\n\n+1 XP");
-    },500);
 
-  }
+function levelCheck(){
+
+    while(player.xp >= 10){
+
+        player.xp -= 10;
+
+        player.level++;
+
+        player.coins += 25;
+
+        alert(
+            "🎉 Новый уровень!\n" +
+            "Уровень: " +
+            player.level +
+            "\n+25 монет!"
+        );
+
+    }
 
 }
 
-dailyReward();
-updateUI();
+
+/* =========================
+   ВИКТОРИНА — 50 ВОПРОСОВ
+========================= */
+
+const questions = [
+
+["Столица Украины?",["Киев","Львов","Одесса","Харьков"],0],
+["Сколько дней в неделе?",["5","6","7","8"],2],
+["Сколько месяцев в году?",["10","11","12","13"],2],
+["Сколько будет 5 + 5?",["8","9","10","11"],2],
+["Какой океан самый большой?",["Атлантический","Тихий","Индийский","Северный"],1],
+["Сколько сторон у квадрата?",["3","4","5","6"],1],
+["Как называется спутник Земли?",["Марс","Луна","Солнце","Венера"],1],
+["Какая планета ближе всего к Солнцу?",["Марс","Земля","Меркурий","Юпитер"],2],
+["Сколько часов в сутках?",["12","20","24","30"],2],
+["Сколько минут в часе?",["30","45","60","90"],2],
+
+["Какой цвет получится из синего и жёлтого?",["Красный","Зелёный","Фиолетовый","Оранжевый"],1],
+["Сколько ног у паука?",["6","8","10","12"],1],
+["Какой металл обозначается Au?",["Серебро","Железо","Золото","Медь"],2],
+["Какая самая большая планета?",["Земля","Марс","Юпитер","Венера"],2],
+["Сколько букв в русском слове «дом»?",["2","3","4","5"],1],
+["Как называется замёрзшая вода?",["Пар","Лёд","Туман","Дождь"],1],
+["Сколько континентов на Земле?",["5","6","7","8"],2],
+["Какой газ нужен человеку для дыхания?",["Кислород","Азот","Гелий","Неон"],0],
+["Сколько будет 10 × 2?",["10","20","30","40"],1],
+["Какой язык используется для создания веб-страниц?",["HTML","MP3","PNG","ZIP"],0],
+
+["Какой цвет у обычной травы?",["Синий","Зелёный","Красный","Чёрный"],1],
+["Сколько пальцев на одной руке?",["4","5","6","7"],1],
+["Какой прибор показывает время?",["Компас","Часы","Линейка","Термометр"],1],
+["Как называется наша планета?",["Марс","Земля","Венера","Сатурн"],1],
+["Сколько будет 100 / 10?",["5","10","20","50"],1],
+["Какое животное называют царём зверей?",["Тигр","Лев","Волк","Медведь"],1],
+["Какая птица не умеет летать?",["Орёл","Пингвин","Ласточка","Сокол"],1],
+["Какой орган отвечает за зрение?",["Ухо","Глаз","Нос","Рука"],1],
+["Сколько сторон у треугольника?",["2","3","4","5"],1],
+["Какая звезда находится в центре Солнечной системы?",["Луна","Солнце","Марс","Земля"],1],
+
+["Сколько будет 7 × 7?",["42","49","56","63"],1],
+["Какой материк самый большой?",["Африка","Евразия","Австралия","Антарктида"],1],
+["Какая вода пригодна для питья?",["Пресная","Морская","Солёная","Океанская"],0],
+["Сколько секунд в минуте?",["30","45","60","90"],2],
+["Как называется наука о животных?",["Ботаника","Зоология","Геология","Физика"],1],
+["Какой газ преобладает в атмосфере Земли?",["Кислород","Азот","Гелий","Водород"],1],
+["Какой цвет получится из красного и синего?",["Зелёный","Фиолетовый","Жёлтый","Белый"],1],
+["Сколько будет 9 + 6?",["13","14","15","16"],2],
+["Какой инструмент используют для измерения температуры?",["Барометр","Термометр","Компас","Весы"],1],
+["Как называется детёныш собаки?",["Котёнок","Щенок","Теленок","Жеребёнок"],1],
+
+["Какая планета известна своими кольцами?",["Марс","Сатурн","Меркурий","Земля"],1],
+["Сколько будет 50 - 25?",["15","20","25","30"],2],
+["Как называется замерзшая вода?",["Лёд","Пар","Облако","Снег"],0],
+["Какой материк самый холодный?",["Африка","Антарктида","Европа","Азия"],1],
+["Сколько сторон у пятиугольника?",["4","5","6","7"],1],
+["Какой орган помогает слышать?",["Глаз","Ухо","Нос","Язык"],1],
+["Какая планета красная?",["Марс","Юпитер","Венера","Нептун"],0],
+["Сколько будет 8 × 5?",["30","35","40","45"],2],
+["Как называется прибор для определения сторон света?",["Компас","Часы","Термометр","Линейка"],0],
+["Какой океан находится между Африкой и Австралией?",["Тихий","Индийский","Атлантический","Северный"],1]
+
+];
+
+let currentQuestion = 0;
 
 
 /* =========================
-   МЕНЮ
+   ЗАПУСК ВИКТОРИНЫ
 ========================= */
 
-function openScreen(id){
+function openGame(game){
 
-  document
-    .querySelectorAll(".screen")
-    .forEach(x=>x.classList.remove("active"));
+    if(game==="quiz"){
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+        currentQuestion = 0;
+
+        showScreen("quiz");
+
+        loadQuestion();
+
+    }
+
+    if(game==="guess"){
+
+        startGuess();
+
+        showScreen("guess");
+
+    }
+
+}
+
+
+/* =========================
+   ВОПРОС
+========================= */
+
+function loadQuestion(){
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber")
+        .textContent = currentQuestion + 1;
+
+    document.getElementById("questionText")
+        .textContent = q[0];
+
+    const box =
+        document.getElementById("answers");
+
+    box.innerHTML = "";
+
+    q[1].forEach((answer,index)=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.textContent = answer;
+
+        button.onclick = () =>
+            answerQuestion(index);
+
+        box.appendChild(button);
+
+    });
+
+    document.getElementById("quizResult")
+        .textContent = "";
+
+}
+
+
+/* =========================
+   ОТВЕТ
+========================= */
+
+function answerQuestion(index){
+
+    const q = questions[currentQuestion];
+
+    const result =
+        document.getElementById("quizResult");
+
+    player.games++;
+
+    if(index === q[2]){
+
+        player.wins++;
+
+        player.coins += 10;
+
+        addXP(1);
+
+        result.className = "success";
+
+        result.textContent =
+            "✅ Правильно! +10 монет и +1 XP";
+
+    }else{
+
+        result.className = "error";
+
+        result.textContent =
+            "❌ Неправильно.";
+
+        save();
+
+    }
+
+    setTimeout(()=>{
+
+        currentQuestion++;
+
+        if(currentQuestion >= questions.length){
+
+            alert(
+                "🎉 Викторина закончена!\n" +
+                "Ты прошёл все 50 вопросов!"
+            );
+
+            showScreen("menu");
+
+        }else{
+
+            loadQuestion();
+
+        }
+
+    },900);
 
 }
 
@@ -654,233 +909,179 @@ function openScreen(id){
    УГАДАЙ ЧИСЛО
 ========================= */
 
-let secretNumber=0;
-let attempts=0;
+let secretNumber;
+let attempts;
+
 
 function startGuess(){
 
-  secretNumber=
-    Math.floor(Math.random()*50)+1;
+    secretNumber =
+        Math.floor(Math.random()*50)+1;
 
-  attempts=0;
+    attempts = 7;
 
-  document.getElementById("guessInput").value="";
+    document.getElementById("attempts")
+        .textContent = attempts;
 
-  document.getElementById("guessResult").textContent=
-    "Я загадал число. Угадывай!";
+    document.getElementById("guessResult")
+        .textContent = "";
 
-  openScreen("guess");
-}
+    document.getElementById("guessInput")
+        .value = "";
 
-function makeGuess(){
-
-  let value=
-    Number(document.getElementById("guessInput").value);
-
-  if(value<1 || value>50){
-
-    document.getElementById("guessResult").textContent=
-      "❌ Введи число от 1 до 50.";
-
-    return;
-  }
-
-  attempts++;
-
-  if(value===secretNumber){
-
-    let reward=Math.max(5,30-attempts*3);
-
-    data.coins+=reward;
-
-    addXP(10);
-
-    document.getElementById("guessResult").innerHTML=
-      "🎉 Правильно!<br><br>"+
-      "Ты угадал за "+attempts+" попыток.<br>"+
-      "+🪙 "+reward+" монет<br>"+
-      "+10 XP";
-
-  }
-
-  else if(value<secretNumber){
-
-    document.getElementById("guessResult").textContent=
-      "⬆️ Моё число больше.";
-
-  }
-
-  else{
-
-    document.getElementById("guessResult").textContent=
-      "⬇️ Моё число меньше.";
-
-  }
-
-  save();
-  updateUI();
 }
 
 
 /* =========================
-   ВИКТОРИНА — 50 ВОПРОСОВ
+   ПРОВЕРКА ЧИСЛА
 ========================= */
 
-const questions=[
+function makeGuess(){
 
-["Столица Украины?",["Киев","Львов","Одесса","Харьков"],0],
-["Сколько дней в неделе?",["5","6","7","8"],2],
-["Сколько месяцев в году?",["10","11","12","13"],2],
-["Какая планета третья от Солнца?",["Марс","Земля","Венера","Юпитер"],1],
-["Сколько будет 5+5?",["8","9","10","11"],2],
-["Какой океан самый большой?",["Атлантический","Индийский","Тихий","Северный Ледовитый"],2],
-["Сколько сторон у квадрата?",["3","4","5","6"],1],
-["Как называется спутник Земли?",["Луна","Фобос","Европа","Титан"],0],
-["Сколько часов в сутках?",["12","20","24","48"],2],
-["Какой газ нужен человеку для дыхания?",["Кислород","Гелий","Неон","Водород"],0],
+    const input =
+        document.getElementById("guessInput");
 
-["Сколько будет 10×2?",["10","15","20","25"],2],
-["Какой цвет получается из синего и жёлтого?",["Красный","Зелёный","Фиолетовый","Оранжевый"],1],
-["Сколько минут в часе?",["30","45","60","90"],2],
-["Какая звезда ближе всего к Земле?",["Сириус","Солнце","Полярная","Вега"],1],
-["Сколько ног у паука?",["6","8","10","12"],1],
-["Какой материк самый большой?",["Африка","Европа","Азия","Австралия"],2],
-["Сколько будет 100÷10?",["5","10","20","25"],1],
-["Какой металл обозначается Fe?",["Медь","Железо","Серебро","Золото"],1],
-["Какая планета известна своими кольцами?",["Марс","Сатурн","Меркурий","Земля"],1],
-["Сколько букв в русском алфавите?",["31","32","33","34"],2],
+    const number =
+        Number(input.value);
 
-["Какой язык программирования назван в честь змеи?",["Python","Java","C++","Ruby"],0],
-["Сколько континентов обычно выделяют?",["5","6","7","8"],2],
-["Какой орган качает кровь?",["Лёгкие","Сердце","Печень","Мозг"],1],
-["Сколько градусов в полном круге?",["90","180","270","360"],3],
-["Как называется замёрзшая вода?",["Пар","Лёд","Туман","Роса"],1],
-["Какая планета самая большая?",["Земля","Юпитер","Марс","Венера"],1],
-["Сколько будет 7×7?",["42","49","56","63"],1],
-["Какой прибор измеряет температуру?",["Барометр","Термометр","Компас","Весы"],1],
-["Как называется наша галактика?",["Андромеда","Млечный Путь","Орион","Сириус"],1],
-["Какой цвет у неба в ясный день?",["Зелёный","Синий","Красный","Чёрный"],1],
+    const result =
+        document.getElementById("guessResult");
 
-["Сколько сторон у треугольника?",["2","3","4","5"],1],
-["Какая планета ближе всего к Солнцу?",["Венера","Меркурий","Марс","Земля"],1],
-["Сколько будет 9+6?",["13","14","15","16"],2],
-["Какой океан находится между Африкой и Австралией?",["Индийский","Тихий","Атлантический","Северный"],0],
-["Как называется детёныш кошки?",["Щенок","Котёнок","Телёнок","Жеребёнок"],1],
-["Сколько пальцев на двух руках?",["8","10","12","14"],1],
-["Какая птица не умеет летать?",["Орел","Пингвин","Ласточка","Сокол"],1],
-["Какой материк самый маленький?",["Европа","Австралия","Африка","Азия"],1],
-["Сколько будет 50-20?",["20","30","40","50"],1],
-["Какой предмет показывает время?",["Часы","Линейка","Компас","Термометр"],0],
+    if(!number || number < 1 || number > 50){
 
-["Как называется наука о животных?",["Ботаника","Зоология","География","Астрономия"],1],
-["Какой газ преобладает в атмосфере Земли?",["Кислород","Азот","Гелий","Водород"],1],
-["Сколько цветов у радуги традиционно выделяют?",["5","6","7","8"],2],
-["Какая страна известна Эйфелевой башней?",["Италия","Франция","Испания","Германия"],1],
-["Сколько будет 12×2?",["20","22","24","26"],2],
-["Как называется прибор для определения сторон света?",["Компас","Барометр","Термометр","Микроскоп"],0],
-["Какая планета красная?",["Марс","Венера","Нептун","Сатурн"],0],
-["Сколько секунд в минуте?",["30","45","60","90"],2],
-["Какой океан самый холодный?",["Тихий","Индийский","Северный Ледовитый","Атлантический"],2],
-["Как называется вода в газообразном состоянии?",["Лёд","Пар","Снег","Роса"],1]
+        result.className = "error";
 
-];
+        result.textContent =
+            "Введите число от 1 до 50.";
 
-let quizIndex=0;
-let quizScore=0;
-
-function startQuiz(){
-
-  quizIndex=0;
-  quizScore=0;
-
-  openScreen("quiz");
-
-  showQuestion();
-}
-
-function showQuestion(){
-
-  let q=questions[quizIndex];
-
-  document.getElementById("questionNumber").textContent=
-    quizIndex+1;
-
-  document.getElementById("question").textContent=q[0];
-
-  document.getElementById("quizResult").textContent="";
-
-  let html="";
-
-  q[1].forEach((answer,i)=>{
-
-    html+=
-      `<button class="answer" onclick="answerQuiz(${i})">
-        ${answer}
-      </button>`;
-
-  });
-
-  document.getElementById("answers").innerHTML=html;
-}
-
-function answerQuiz(index){
-
-  let q=questions[quizIndex];
-
-  if(index===q[2]){
-
-    quizScore++;
-
-    document.getElementById("quizResult").textContent=
-      "✅ Правильно!";
-
-  }else{
-
-    document.getElementById("quizResult").textContent=
-      "❌ Неправильно.";
-
-  }
-
-  document
-    .querySelectorAll("#answers button")
-    .forEach(b=>b.disabled=true);
-
-  setTimeout(()=>{
-
-    quizIndex++;
-
-    if(quizIndex>=questions.length){
-
-      let reward=quizScore*2;
-
-      data.coins+=reward;
-
-      addXP(quizScore);
-
-      document.getElementById("question").textContent=
-        "🏆 Викторина закончена!";
-
-      document.getElementById("answers").innerHTML=
-        `<div class="result">
-          Правильных ответов: ${quizScore}/50<br><br>
-          +${reward} 🪙<br>
-          +${quizScore} XP
-        </div>
-        <br>
-        <button class="primary" onclick="openScreen('games')">
-          Вернуться к играм
-        </button>`;
-
-      save();
-      updateUI();
-
-    }else{
-
-      showQuestion();
+        return;
 
     }
 
-  },700);
+    if(attempts <= 0){
+
+        return;
+
+    }
+
+    attempts--;
+
+    document.getElementById("attempts")
+        .textContent = attempts;
+
+    if(number === secretNumber){
+
+        player.coins += 30;
+
+        player.wins++;
+
+        addXP(2);
+
+        result.className = "success";
+
+        result.textContent =
+            "🎉 Угадал! +30 монет и +2 XP";
+
+        setTimeout(startGuess,1500);
+
+        return;
+
+    }
+
+    if(number < secretNumber){
+
+        result.className = "error";
+
+        result.textContent =
+            "⬆️ Загаданное число больше.";
+
+    }else{
+
+        result.className = "error";
+
+        result.textContent =
+            "⬇️ Загаданное число меньше.";
+
+    }
+
+    if(attempts === 0){
+
+        result.textContent =
+            "😢 Попытки закончились. Новое число.";
+
+        setTimeout(startGuess,1800);
+
+    }
+
+    save();
+
+}
+
+
+/* =========================
+   КЕЙСЫ
+========================= */
+
+function openCases(){
+
+    showScreen("cases");
+
+}
+
+
+function openCase(price){
+
+    if(player.coins < price){
+
+        alert("❌ Недостаточно монет!");
+
+        return;
+
+    }
+
+    player.coins -= price;
+
+    player.cases++;
+
+    const random =
+        Math.floor(Math.random()*100);
+
+    let reward;
+
+    if(price === 25){
+
+        if(random < 60){
+            reward = 15;
+        }else if(random < 90){
+            reward = 35;
+        }else{
+            reward = 100;
+        }
+
+    }else{
+
+        if(random < 50){
+            reward = 40;
+        }else if(random < 85){
+            reward = 80;
+        }else{
+            reward = 200;
+        }
+
+    }
+
+    player.coins += reward;
+
+    addXP(1);
+
+    alert(
+        "🎁 Кейс открыт!\n\n" +
+        "Ты получил: +" +
+        reward +
+        " 🪙"
+    );
+
+    save();
 
 }
 
@@ -889,116 +1090,11 @@ function answerQuiz(index){
    МАГАЗИН
 ========================= */
 
-function buyItem(price,name){
+function openShop(){
 
-  if(data.coins<price){
+    showScreen("shop");
 
-    alert("❌ Недостаточно монет!");
-
-    return;
-  }
-
-  data.coins-=price;
-
-  save();
-  updateUI();
-
-  alert(
-    "✅ Покупка!\n\n"+
-    "Ты купил: "+name
-  );
-}
-
-function buyXPBoost(){
-
-  if(data.coins<50){
-
-    alert("❌ Недостаточно монет!");
-
-    return;
-  }
-
-  data.coins-=50;
-
-  addXP(25);
-
-  save();
-  updateUI();
-
-  alert("⚡ Бустер активирован!\n+25 XP");
 }
 
 
-/* =========================
-   КЕЙСЫ
-========================= */
-
-function openCase(price){
-
-  if(data.coins<price){
-
-    alert("❌ Недостаточно монет!");
-
-    return;
-  }
-
-  data.coins-=price;
-
-  let rewards=[
-    ["🪙 10 монет",10],
-    ["🪙 25 монет",25],
-    ["🪙 50 монет",50],
-    ["⭐ +10 XP",0],
-    ["💎 100 монет",100]
-  ];
-
-  let reward=
-    rewards[Math.floor(Math.random()*rewards.length)];
-
-  if(reward[1]>0){
-    data.coins+=reward[1];
-  }else{
-    addXP(10);
-  }
-
-  save();
-  updateUI();
-
-  alert(
-    "🎉 Кейс открыт!\n\n"+
-    "Награда: "+reward[0]
-  );
-}
-
-function openBigCase(){
-
-  if(data.coins<100){
-
-    alert("❌ Недостаточно монет!");
-
-    return;
-  }
-
-  data.coins-=100;
-
-  let reward=
-    Math.floor(Math.random()*201)+50;
-
-  data.coins+=reward;
-
-  addXP(20);
-
-  save();
-  updateUI();
-
-  alert(
-    "💎 Большой кейс открыт!\n\n"+
-    "Ты получил 🪙 "+reward+
-    "\n+20 XP"
-  );
-}
-
-</script>
-
-</body>
-      </html>
+function buyItem(name,p
