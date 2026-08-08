@@ -479,19 +479,11 @@ let player = {
 
 // ИМЯ ИЗ TELEGRAM
 
-if (telegramUser) {
-
-    if (telegramUser.username) {
-
-        player.name = "@" + telegramUser.username;
-
-    } else if (telegramUser.first_name) {
-
-        player.name = telegramUser.first_name;
-
-    }
-
+if (telegramUser && telegramUser.first_name) {
+    player.name = telegramUser.first_name;
 }
+
+
 
 
 // СОХРАНЕНИЕ ДАННЫХ
