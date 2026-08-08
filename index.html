@@ -1072,21 +1072,10 @@ loadGame();
 
 // ИМЯ TELEGRAM НЕ ДАЁМ ЗАТЕРЕТЬ
 
-if (telegramUser) {
-
-    if (telegramUser.username) {
-
-        player.name =
-            "@" + telegramUser.username;
-
-    } else if (telegramUser.first_name) {
-
-        player.name =
-            telegramUser.first_name;
-
-    }
-
+if (telegramUser && telegramUser.first_name) {
+    player.name = telegramUser.first_name;
 }
+
 
 
 updateUI();
